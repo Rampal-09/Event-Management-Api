@@ -41,7 +41,7 @@ exports.registerUser = async (req, res, next) => {
         message: "you already register for this event",
       });
     }
-    if (registrations.lenght >= event.capacity) {
+    if (registrations.length >= event.capacity) {
       return res.status(400).json({
         success: false,
         message: "event is full",
@@ -90,6 +90,24 @@ exports.cancelRegistration = async (req, res, next) => {
         message: "Event not found",
       });
     }
+    if (!event.registrations.includes(userId)) {
+      return res.status(400).json({
+        success: false,
+        message: "User is not registered for this event",
+      });
+    }
+
+    event.registrations = event.registrations.filter(
+      (id) => id.toString() !== userId
+    );
+
+    await event.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Registration cancelled successfully",
+      event: event,
+    });
   } catch (err) {
     console.log("server error", err);
     return res.status(500).json({
