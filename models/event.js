@@ -6,6 +6,7 @@ const eventSchema = new mongoose.Schema(
     dateTime: { type: Date, required: true },
     location: { type: String, required: true },
     capacity: { type: Number, required: true, max: 1000 },
+    registrations : [ {mongoose.Schema.Types.ObjectId ,  ref: "User"}  ]
   },
   { timestamps: true }
 );
