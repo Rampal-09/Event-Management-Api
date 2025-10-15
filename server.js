@@ -3,6 +3,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const app = express();
+// local module
+
+const { eventRoutes } = require("./routes/eventRoutes");
+const { registrationRoutes } = require("./routes/registrationRoutes");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -10,6 +14,9 @@ app.use(express.json());
 app.get("/", (req, res, next) => {
   return res.json({ message: "welcome to EventMenagement" });
 });
+
+app.use("/events", eventRoutes);
+app.use("/user", registrationRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)

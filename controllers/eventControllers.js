@@ -1,5 +1,3 @@
-const event = require("../models/event");
-const event = require("../models/event");
 const Event = require("../models/event");
 exports.CreateEvent = async (req, res, next) => {
   const { title, dateTime, location, capacity } = req.body;
