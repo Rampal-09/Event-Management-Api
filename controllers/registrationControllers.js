@@ -41,7 +41,7 @@ exports.registerUser = async (req, res, next) => {
         message: "you already register for this event",
       });
     }
-    if (registrations.length >= event.capacity) {
+    if (event.registrations.length >= event.capacity) {
       return res.status(400).json({
         success: false,
         message: "event is full",
@@ -82,7 +82,7 @@ exports.cancelRegistration = async (req, res, next) => {
     });
   }
   try {
-    const event = await Event.findById(event);
+    const event = await Event.findById(eventId);
 
     if (!event) {
       return res.status(404).json({
